@@ -7,19 +7,10 @@
         <title>Word Generator</title>
     </head>
     <body>
-        <div>
-        <input 
-        type="text" 
-        id="input" 
-        class="search-input" 
-        placeholder="Enter a word"
-        aria-label="Enter a word" 
-        />
-        <button id="btn" class="btn" aria-label="Look up the word">
-            Search
-        </button>
-        <div id="result" class="result"></div>
-        </div>
-        <script src="./js/index.js"></script>
+        <button id="randomBtn">Get Random Word</button>
+        <div id="result"></div>
+        <input type="text" id="wordInput" hidden />
+
+        <script src="./js/randomWord.js"></script>
     </body>
 </html>
