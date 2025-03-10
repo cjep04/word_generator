@@ -1,3 +1,4 @@
+
 const btn = document.getElementById('btn');
 const wordInput = document.getElementById('input');
 const displayResultDiv = document.getElementById('result');
@@ -11,6 +12,7 @@ btn.addEventListener("click", () => {
     }
   });
 
+
 const getMeaning = async (word) => {
     try{
         const response = await fetch(
@@ -20,6 +22,7 @@ const getMeaning = async (word) => {
                 throw new Error('Word not found');
             }
             const data = await response.json();
+            console.log(data[0].phonetics);
             displayMeaning(data);
     } catch (error) {
         displayResultDiv.textContent = error.message;
@@ -29,26 +32,28 @@ const getMeaning = async (word) => {
 };
 
 const displayMeaning = (data) => {
-    const wordData = data[0];
-    const phonetics = wordData.phonetics
-      .map(
-        (p) =>
-          `<div class="result-item">${p.text} <audio class="result-audio" controls src="${p.audio}"></audio></div>`
-      )
-      .join("");
-    const meanings = wordData.meanings
-      .map((meaning) => {
-        const definitions = meaning.definitions
-          .map((def) => `<li>${def.definition}</li>`)
-          .join("");
-        return `<div class="result-item"><strong>${meaning.partOfSpeech}</strong><ul>${definitions}</ul></div>`;
-      })
-      .join("");
-  
-    displayResultDiv.innerHTML = `
-      <h2 class="result-title">${wordData.word}</h2>
-      <div>${phonetics}</div>
-      <div>${meanings}</div>
-      <div class="result-item"><a href="${wordData.sourceUrls[0]}" target="_blank">Source</a></div>
-    `;
-  };
+  const wordData = data[0];
+
+  const britishPhonetic = wordData.phonetics.find(
+    (p) => p.audio && p.audio.includes("uk")
+  );
+
+  let phoneticsHTML = "";
+  if (britishPhonetic) {
+    phoneticsHTML = `<div class="result-item">${britishPhonetic.text || ""} 
+    <audio class="result-audio" controls src="${britishPhonetic.audio}"></audio></div>`;
+  }
+
+  const firstMeaning = wordData.meanings[0];
+  const partOfSpeech = firstMeaning.partOfSpeech;
+  const firstDefinition = firstMeaning.definitions[0].definition;
+
+  const meaningHTML = `<div class="result-item"><strong>${partOfSpeech}</strong><p>${firstDefinition}</p></div>`;
+
+  displayResultDiv.innerHTML = `
+    <h2 class="result-title">${wordData.word}</h2>
+    <div>${phoneticsHTML}</div>
+    <div>${meaningHTML}</div>
+    <div class="result-item"><a href="${wordData.sourceUrls[0]}" target="_blank">Source</a></div>
+  `;
+};
