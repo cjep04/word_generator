@@ -87,9 +87,8 @@ function displayMeaning(data) {
   
       const resultDiv = document.getElementById('result');
       
-      // Reset any existing animation class (in case of multiple clicks)
-      resultDiv.classList.remove('result-animate');
-      void resultDiv.offsetWidth; // Trigger reflow to restart animation
+       resultDiv.classList.remove('result-animate');
+      void resultDiv.offsetWidth; 
   
       resultDiv.innerHTML = meaningHTML;
       resultDiv.classList.add('result-animate');

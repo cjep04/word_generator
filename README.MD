@@ -60,7 +60,7 @@ Uses media queries for flexible layouts, button stacking, and fluid sizing.
 
 ---
 
-## ✨ Customization Ideas
+## ✨ Customisation Ideas
 
 - Add **copy-to-clipboard** fallback for unsupported devices.
 - Add **social media share buttons** (Facebook, Twitter, LinkedIn).

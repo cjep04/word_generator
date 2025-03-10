@@ -74,7 +74,7 @@
     max-width: 200px;
     text-align: center;
   }
-  .control_panel .side_btn2{
+  .control_panel .side_btn2 {
     background-color: #ECDCBF;
     border: 6px solid #A31D1D;
     border-radius: 50px;
@@ -113,25 +113,25 @@
 
   /* ----- Button Animation Styles ----- */
 
-.control_panel button {
+.control_panel button, a {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
   }
   
   /* Hover effect: subtle scale + shadow */
-  .control_panel button:hover {
+  .control_panel button:hover, a:hover {
     transform: scale(1.05);
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
   }
   
   /* Click effect: scale down */
-  .control_panel button:active {
+  .control_panel button:active, a:active {
     transform: scale(0.97);
   }
   
   /* Optional pulse glow effect (for centre button only) */
-  .control_panel .centre_btn:hover::after {
+  .control_panel .centre_btn:hover::after, a:hover::after {
     content: "";
     position: absolute;
     top: -50%;
