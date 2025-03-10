@@ -1,40 +1,49 @@
-
 // JavaScript
 const randomBtn = document.getElementById('randomBtn');
 const displayResultDiv = document.getElementById('result');
-const wordInput = document.getElementById('wordInput'); // This is only used in your finally block
+const wordInput = document.getElementById('wordInput'); // Optional use
 
+// Event listener for button click
 randomBtn.addEventListener('click', () => {
-  fetch("https://random-word-api.herokuapp.com/word?number=1")
-    .then((response) => response.json())
-    .then((data) => {
-      const randomWord = data[0];
-      console.log("Random Word:", randomWord);
-      getMeaning(randomWord);
-    })
-    .catch((error) => {
-      displayResultDiv.textContent = "⚠️ Random Word API fetch failed";
-      console.log("Random Word API Error:", error);
-    });
+  fetchWordWithDefinition();
 });
 
-const getMeaning = async (word) => {
+// Helper: fetch a random word
+const fetchRandomWord = async () => {
   try {
-    const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
-    if (!response.ok) {
-      throw new Error('Word not found');
-    }
+    const response = await fetch("https://random-word-api.herokuapp.com/word?number=1");
     const data = await response.json();
-    console.log(data[0].phonetics);
-    displayMeaning(data);
+    return data[0];
   } catch (error) {
-    displayResultDiv.textContent = "⚠️ Dictionary error: " + error.message;
-    console.log("Dictionary API Error:", error.message);
-  } finally {
-    wordInput.value = ''; // Optional, not really needed here
+    console.log("Random Word API Error:", error);
+    displayResultDiv.textContent = "⚠️ Failed to fetch random word.";
+    throw error;
   }
 };
 
+// Main logic: keep trying until a word with a definition is found
+const fetchWordWithDefinition = async () => {
+  let success = false;
+
+  while (!success) {
+    const word = await fetchRandomWord();
+    console.log("Trying word:", word);
+
+    try {
+      const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
+      if (!response.ok) throw new Error('No definition found');
+      const data = await response.json();
+      displayMeaning(data);
+      success = true;
+    } catch (error) {
+      console.log("No definition found for:", word, "Retrying...");
+    } finally {
+      wordInput.value = '';
+    }
+  }
+};
+
+// Display meaning data
 const displayMeaning = (data) => {
   const wordData = data[0];
 
@@ -61,3 +70,4 @@ const displayMeaning = (data) => {
     <div class="result-item"><a href="${wordData.sourceUrls[0]}" target="_blank">Source</a></div>
   `;
 };
+
