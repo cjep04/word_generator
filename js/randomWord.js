@@ -50,33 +50,71 @@ async function fetchWordWithDefinition() {
     }
 }
 
-
 function displayMeaning(data) {
-    let word = data[0].word;
-    const phoneticUK = data[0].phonetics.find ( p => p.audio && p.audio. includes('uk'));
-
-    let phoneticHTML = '';
-if (phoneticUK) {
-    phoneticHTML =  `<p>Phonetic: ${phoneticUK.text || ''}</p>
-    <audio controls src="${phoneticUK.audio}"></audio>`;
-}
-
-const partOfSpeech = data[0].meanings[0].partOfSpeech;
-const definition = data[0].meanings[0].definitions[0].definition;
-
-const meaningHTML = `
-    <h2>${word}</h2>
-    ${phoneticHTML}
-    <p><strong>${partOfSpeech}</strong>: ${definition}</p>
-`;
-
-document.getElementById('result').innerHTML = meaningHTML;
-
-}
+    try {
+      const word = data[0]?.word || "Unknown word";
+      const partOfSpeech = data[0]?.meanings?.[0]?.partOfSpeech || "N/A";
+      const definition = data[0]?.meanings?.[0]?.definitions?.[0]?.definition || "No definition available.";
+  
+      const meaningHTML = `
+        <h2>${word}</h2>
+        <p><strong>${partOfSpeech}</strong>: ${definition}</p>
+      `;
+  
+      document.getElementById('result').innerHTML = meaningHTML;
+    } catch (err) {
+      console.error("Error displaying meaning:", err);
+      document.getElementById('result').innerHTML = `<p>Oops! Couldn't display the word meaning.</p>`;
+    }
+  }
+  
 
 
 
  generateBtn.addEventListener('click', fetchWordWithDefinition);
 
 
+ function displayMeaning(data) {
+    try {
+      const word = data[0]?.word || "Unknown word";
+      const partOfSpeech = data[0]?.meanings?.[0]?.partOfSpeech || "N/A";
+      const definition = data[0]?.meanings?.[0]?.definitions?.[0]?.definition || "No definition available.";
+  
+      const meaningHTML = `
+        <h2>${word}</h2>
+        <p><strong>${partOfSpeech}</strong>: ${definition}</p>
+      `;
+  
+      const resultDiv = document.getElementById('result');
+      
+      // Reset any existing animation class (in case of multiple clicks)
+      resultDiv.classList.remove('result-animate');
+      void resultDiv.offsetWidth; // Trigger reflow to restart animation
+  
+      resultDiv.innerHTML = meaningHTML;
+      resultDiv.classList.add('result-animate');
+    } catch (err) {
+      console.error("Error displaying meaning:", err);
+      document.getElementById('result').innerHTML = `<p>Oops! Couldn't display the word meaning.</p>`;
+    }
+  }
+  
 
+
+//Share Button
+  shareBtn.addEventListener('click', async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: document.title,
+          text: 'Check out this cool design!',
+          url: window.location.href
+        });
+        console.log('Shared successfully!');
+      } catch (err) {
+        console.error('Share failed:', err);
+      }
+    } else {
+      alert('Web Share not supported on this device. Try copying the link instead.');
+    }
+  });

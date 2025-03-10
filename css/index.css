@@ -1,0 +1,305 @@
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #F0F0F0;
+    padding: 1rem;
+  }
+  
+  .base_layer {
+    background-color: #D84040;
+    width: 100%;
+    max-width: 1200px;
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border: solid 7px #A31D1D;
+    border-radius: 60px;
+    box-shadow: 25px 50px 15px 4px rgba(0, 0, 0, 0.25);
+    margin: 2rem auto;
+  }
+  
+  .control_panel_background {
+    display: flex;
+    background-color: #ECDCBF;
+    width: 100%;
+    min-height: 100px;
+    justify-content: center;
+    border-top-right-radius: 55px;
+    border-top-left-radius: 55px;
+    border-bottom: solid 7px #A31D1D;
+    align-items: center;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+  
+  .control_panel {
+    display: flex;
+    background-color: #D84040;
+    width: 100%;
+    max-width: 1000px;
+    justify-content: space-between;
+    border-radius: 50px;
+    border: solid 6px #A31D1D;
+    align-items: center;
+    padding: 1rem 2rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+  }
+  
+  .control_panel .side_btn1 {
+    background-color: #ECDCBF;
+    border: 6px solid #A31D1D;
+    border-radius: 50px;
+    padding: 10px 30px;
+    font-weight: bold;
+    color: #A31D1D;
+    cursor: pointer;
+    font-family: "greycliff-cf", sans-serif;
+    font-weight: 800;
+    font-size: 1.5rem;
+    text-transform: capitalize;
+    flex: 1 1 25%; /* Smaller buttons */
+    max-width: 200px;
+    text-align: center;
+  }
+  .control_panel .side_btn2{
+    background-color: #ECDCBF;
+    border: 6px solid #A31D1D;
+    border-radius: 50px;
+    padding: 0px 30px;
+    font-weight: bold;
+    color: #A31D1D;
+    cursor: pointer;
+    font-family: "greycliff-cf", sans-serif;
+    font-weight: 800;
+    text-transform: capitalize;
+    flex: 1 1 25%; /* Smaller buttons */
+    max-width: 200px;
+    text-align: center;
+  }
+  .control_panel .centre_btn {
+    background-color: #ECDCBF;
+    border: 6px solid #A31D1D;
+    border-radius: 50px;
+    padding: 10px 60px;
+    font-weight: bold;
+    color: #A31D1D;
+    cursor: pointer;
+    font-family: "greycliff-cf", sans-serif;
+    font-weight: 800;
+    font-size: 1.5rem;
+    text-transform: capitalize;
+    flex: 2 1 50%; /* Larger button */
+    min-width: 250px;
+    text-align: center;
+  }
+  
+  .control_panel .side_btn2 img {
+    width: 40px;
+    height: 40px;
+  }
+
+  /* ----- Button Animation Styles ----- */
+
+.control_panel button {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Hover effect: subtle scale + shadow */
+  .control_panel button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Click effect: scale down */
+  .control_panel button:active {
+    transform: scale(0.97);
+  }
+  
+  /* Optional pulse glow effect (for centre button only) */
+  .control_panel .centre_btn:hover::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.2) 10%, transparent 60%);
+    animation: pulse 1s ease-out;
+    pointer-events: none;
+    border-radius: 50%;
+  }
+  
+  /* Pulse animation keyframes */
+  @keyframes pulse {
+    0% {
+      transform: scale(0);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1.5);
+      opacity: 0;
+    }
+}
+  
+  .word_display {
+    margin-top: 2rem;
+    padding:  100px 200px;
+    text-align: center;
+    word-wrap: break-word;
+    background-color: #F8F2DE;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+    border-radius: 50px;
+    border: solid 6px #A31D1D;
+    margin: 25px;
+  }
+  
+  #resultDisplay, #result {
+    font-size: 1.5rem;
+    color: #A31D1D;
+    padding: 0.5rem;
+    font-family: "greycliff-cf", sans-serif;
+    font-weight: 800;
+    font-size: 1.5rem;
+    text-transform: capitalize;
+    align-items: center;
+    text-align: center;
+  }
+  
+/* ---------- Result Animation ---------- */
+.result-animate {
+    animation: fadeSlideUp 0.6s ease forwards;
+    opacity: 0; /* start hidden until animation starts */
+    transform: translateY(10px);
+  }
+  
+  @keyframes fadeSlideUp {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  
+  #result h2 {
+    margin-bottom: 1rem;
+  }
+  
+  #result p {
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+  }
+
+ /* ----------------- RESPONSIVE DESIGN ------------------ */
+@media (max-width: 1024px) {
+    .control_panel {
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 1rem;
+    }
+  
+    .control_panel .side_btn1,
+    .control_panel .side_btn2 {
+      flex: 1 1 45%; /* Wider side buttons for tablet */
+      max-width: none;
+      font-size: 1.5rem;
+    }
+  
+    .control_panel .centre_btn {
+      flex: 1 1 100%;
+      min-width: unset;
+      font-size: 1.4rem;
+    }
+  
+    .word_display {
+      padding: 60px 80px;
+    }
+  
+    #resultDisplay, #result {
+      font-size: 1.3rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .control_panel {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1rem;
+      padding: 1rem;
+    }
+  
+    .control_panel .side_btn1,
+    .control_panel .centre_btn {
+      width: 100%;
+      flex: unset;
+      max-width: none;
+      font-size: 1.5rem;
+      padding: 12px;
+    }
+  
+    .control_panel .side_btn2 img {
+      width: 40px;
+      height: 40px;
+    }
+  
+    .word_display {
+      padding: 50px 40px;
+    }
+  
+    #resultDisplay, #result {
+      font-size: 1.2rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .container {
+      padding: 0.5rem;
+    }
+  
+    .base_layer {
+      border-radius: 55px;
+    }
+
+  
+    .control_panel .side_btn1,
+    .control_panel .centre_btn {
+      font-size: 1.5rem;
+      padding: 25px 30px;
+    }
+  
+    .control_panel .side_btn2 img {
+      width: 40px;
+      height: 40px;
+    }
+  
+    .word_display {
+      padding: 60px 20px;
+      margin: 15px;
+      border-radius: 30px;
+    }
+  
+    #resultDisplay, #result {
+      font-size: 1.5rem;
+    }
+  }
+  

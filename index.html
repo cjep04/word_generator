@@ -1,17 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <link rel="stylesheet" href="https://use.typekit.net/lsf3sie.css">
         <link rel="stylesheet" href="./css/index.css">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Word Generator</title>
     </head>
     <body>
-        <button id="generateBtn">Get Random Word</button>
-        <div id="resultDisplay"></div>
-        <div id="result"></div>
-        <input type="text" id="wordInput" hidden />
-
+        <section>
+            <div class="container">
+                <div class="base_layer">
+                    <div class="control_panel_background">
+                        <div class="control_panel">
+                            <button class="side_btn1" id="shareBtn">SHARE</button>
+                            <button class="centre_btn" id="generateBtn">CLICK TO GENERATE WORD</button>
+                            <button class="side_btn2"> <img src="./resources/images/Github Icon.png" alt=""></button>
+                        </div>
+                    </div>
+                    <div class="word_display">
+                        <div id="resultDisplay"></div>
+                        <div id="result"></div>
+                        <input type="text" id="wordInput" hidden />
+                    </div>
+                </div>
+            </div>
+        </section>
         <script src="./js/randomWord.js"></script>
     </body>
 </html>
